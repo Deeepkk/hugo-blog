@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{ .Content }}
+<div class="py-8 lg:py-20">
+  <article class="max-w-6xl mx-auto px-3">
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8" data-test="articles-section">
+    {{ range .Pages }}
+    <div class="col-span-1 ">
+      <a href="{{ .Permalink }}" class="transition-all duration-75 ease-in-out h-full block relative top-0 hover:-top-2 shadow-2xl shadow-gray-800 hover:shadow-xl bg-black rounded-xl overflow-hidden" data-test="article-card">
+        {{ if .Params.img }}
+        <img class="rounded-t-xl" loading="lazy" src="{{.Permalink}}{{ .Params.img}}" alt="{{ .Title }}">
+        {{end}}
+        <div class="py-6 px-8 ">
+          <h2 class="font-bold text-gray-300 text-2xl leading-tight">{{ .Title }}</h2>
+          <p class="text-xs text-gray-400 mt-4 flex items-center">{{ dateFormat "02-01-2006" .Date }}</p>
+        </div>
+      </a>
+    </div>
+  {{ end }}
+  </section>
+</div>
+{{ end }}

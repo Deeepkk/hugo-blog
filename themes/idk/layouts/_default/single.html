@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="py-12 lg:py-20">
+<article class="max-w-5xl mx-auto px-3">
+  <div class="max-w-3xl mx-auto text-center"><h1 class="text-gray-300 text-4xl">{{ .Title }}</h1>
+  <span class="text-gray-600">Last Updated: {{ .Lastmod | time.Format ":date_medium" }}</span>
+  </div>
+  {{ if .Params.img }}
+  <img class="rounded-xl w-full h-auto mx-auto mt-7" loading="lazy" src="{{ .Params.img}}" alt="{{ .Title }}">
+{{end}}
+  <section class="max-w-3xl mx-auto py-6 lg:py-12 text-gray-300 text-lg prose prose-h1:text-orange-600 prose-h2:text-orange-500 prose-h3:text-orange-400 prose-h4:text-orange-300 prose-a:text-rose-600 prose-strong:text-violet-600 prose-img:rounded-xl prose-img:mx-auto">
+  {{ .Content }}
+  </section>
+  </article>
+  <div class="text-center text-gray-600">
+  {{ partial "terms.html" (dict "taxonomy" "categories" "page" .) }}
+</div></div>
+{{ end }}

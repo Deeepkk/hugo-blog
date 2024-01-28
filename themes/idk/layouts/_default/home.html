@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="max-w-3xl text-lg mx-auto prose text-gray-300 prose-h1:text-orange-600 prose-strong:text-violet-500 prose-h2:text-orange-500 prose-h3:text-orange-400 prose-h4:text-orange-300">
+{{ .Content}}
+
+  <div>
+    <h2> Browse Latest Posts </h2>
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ $latestPosts := slice }}
+
+{{ range first 2 $posts.ByDate }}
+    {{ $latestPosts = $latestPosts | append . }}
+{{ end }}
+
+{{ range $latestPosts }}
+    <a href="{{.Permalink}}"><h3>{{ .Title }}</h3></a>
+    <p>{{ .Date.Format "Monday, January 2, 2006" }}</p>
+{{ end }}
+
+  </div>
+  <a href="/categories" class="text-orange-600">Browse All Posts >> </a>
+</div>
+{{ end }}

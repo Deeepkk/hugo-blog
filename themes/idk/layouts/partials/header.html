@@ -1,0 +1,98 @@
+<nav>
+    <div class="max-w-5xl mx-auto px-3 py-3 flex items-center justify-between h-16">
+      <a href="/" class="font-bold text-gray-300 text-xl hover:text-rose-600">Modapps.me</a>
+  
+      <!-- Navigation Links for Desktop -->
+      <div class="hidden md:flex space-x-4">
+        <a href="{{.Site.BaseURL}}" class="text-gray-300 hover:text-rose-600">Home</a>
+        <a href="{{.Site.BaseURL}}posts" class="text-gray-300 hover:text-rose-600">Posts</a>
+
+        <div class="relative group">
+            <button class="flex items-center  text-gray-300 hover:text-rose-600">
+                Categories
+                <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>       
+                 <div class="absolute hidden mt-2 space-y-2 p-2 rounded-lg shadow-md z-10">
+                    {{ range $taxonomy, $terms := .Site.Taxonomies }}
+                    {{ range $term, $pages := $terms }}
+                    {{ $capitalizedTerm := $term | humanize | title }}
+                    <a href="{{ "/" | relLangURL }}{{ $taxonomy | urlize }}/{{ $term | urlize }}"  class="block px-4 py-2 text-gray-300 hover:text-rose-600">{{ $capitalizedTerm }}</a>
+                    {{ end }}
+                {{ end }}
+          </div>
+        </div>
+        <a href="{{.Site.BaseURL}}privacy-policy" class="text-gray-300 hover:text-rose-600">Privacy Policy</a>
+        <a href="{{.Site.BaseURL}}terms-and-conditions" class="text-gray-300 hover:text-rose-600">Terms & Conditions</a>   
+        <a href="{{.Site.BaseURL}}about" class="text-gray-300 hover:text-rose-600">About</a>
+        <a href="{{.Site.BaseURL}}contact" class="text-gray-300 hover:text-rose-600">Contact</a>
+      </div>
+  
+      <!-- Hamburger Menu for Mobile -->
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-300 hover:text-rose-600 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Mobile Menu (Initially hidden) -->
+    <div id="mobile-menu" class="hidden md:hidden">
+      <a href="{{.Site.BaseURL}}" class="block py-2 px-4 text-gray-300 hover:text-rose-600">Home</a>
+      <a href="{{.Site.BaseURL}}posts" class="block py-2 px-4 text-gray-300 hover:text-rose-600">Posts</a>
+      <div class="group">
+        <button class="flex items-center py-2 px-4 text-gray-300 hover:text-rose-600">
+            Categories
+            <svg class="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>        <div class="hidden mt-2 space-y-2 p-2 rounded-lg shadow-md">
+         {{ range $taxonomy, $terms := .Site.Taxonomies }}
+            {{ range $term, $pages := $terms }}
+            {{ $capitalizedTerm := $term | humanize | title }}
+            <a href="{{ "/" | relLangURL }}{{ $taxonomy | urlize }}/{{ $term | urlize }}"  class="block px-4 py-2 text-gray-300 hover:text-rose-600">{{ $capitalizedTerm }}</a>
+            {{ end }}
+        {{ end }}
+        </div>
+      </div>
+      <a href="{{.Site.BaseURL}}privacy-policy" class="block py-2 px-4 text-gray-300 hover:text-rose-600">Privacy Policy</a>
+      <a href="{{.Site.BaseURL}}terms-and-conditions" class="block py-2 px-4 text-gray-300 hover:text-rose-600">Terms & Conditions</a>   
+      <a href="{{.Site.BaseURL}}about" class="block py-2 px-4 text-gray-300 hover:text-rose-600">About</a>
+      <a href="{{.Site.BaseURL}}contact" class="block py-2 px-4 text-gray-300 hover:text-rose-600">Contact</a>
+    </div>
+  </nav>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var menuToggle = document.getElementById("menu-toggle");
+      var mobileMenu = document.getElementById("mobile-menu");
+      menuToggle.addEventListener("click", function () {
+        mobileMenu.classList.toggle("hidden");
+      });
+  
+      // Handle dropdown on desktop
+      var dropdownToggle = document.querySelector('.group button');
+      if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function () {
+          var dropdownMenu = dropdownToggle.nextElementSibling;
+          dropdownMenu.classList.toggle('hidden');
+        });
+      }
+  
+      // Handle dropdown on mobile
+      var mobileDropdownToggle = document.querySelector('#mobile-menu .group button');
+      if (mobileDropdownToggle) {
+        mobileDropdownToggle.addEventListener('click', function () {
+          var mobileDropdownMenu = mobileDropdownToggle.nextElementSibling;
+          mobileDropdownMenu.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+  
